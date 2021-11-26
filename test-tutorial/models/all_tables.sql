@@ -1,15 +1,22 @@
 with winners as (
 
-    select * {{ ref('stg_winners') }}
+    select * from {{ ref('stg_winners') }}
+
+),
+
+losers as (
+
+    select * from {{ ref('stg_losers') }}
+
+),
+
+final as (
+
+select * 
+from winners a
+inner join losers b
+on a.C11=b.C19
 
 )
 
--- losers as (
-
---     select * from {{ ref('stg_losers') }}
-
--- )
-
-select * 
-from stg_winners
--- inner join stg_losers
+select * from final
